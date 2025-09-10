@@ -693,3 +693,200 @@ Pruning is the process of removing unnecessary branches or nodes from a decision
 *   Always produces binary splits.
 *   Uses Gini Index (classification) and MSE/variance (regression).
 *   Handles both numeric and categorical attributes.
+
+---
+---
+
+## MID IMP 
+---
+
+### **Q. 1**
+
+**(a) What is “curse of dimensionality”? How to overcome this? (3 Marks)**
+
+The **"curse of dimensionality"** refers to a set of problems that arise when analyzing data in high-dimensional spaces. As the number of features (dimensions) increases, the data becomes extremely sparse, and the volume of the space grows so fast that the available data becomes insufficient to fill it.
+
+This leads to several issues:
+*   The distance between any two points in a high-dimensional space becomes less meaningful.
+*   Much more data is required to support a statistically sound conclusion.
+*   The risk of model overfitting increases significantly.
+
+**How to Overcome It:**
+1.  **Feature Selection:** Select a subset of the most relevant original features and discard the rest.
+2.  **Feature Extraction / Dimensionality Reduction:** Create new, lower-dimensional features by combining the original ones. Common techniques include:
+    *   Principal Component Analysis (PCA)
+    *   Linear Discriminant Analysis (LDA)
+
+**(b) Find the eigenvalues and corresponding eigenvectors for the matrix A = [,]. (4 Marks)**
+
+**Step 1: Find the Eigenvalues (λ)**
+We solve the characteristic equation det(A - λI) = 0.
+*   A - λI = `[[1-λ, 2], [4, 3-λ]]`
+*   det(A - λI) = (1-λ)(3-λ) - (2)(4)
+    = 3 - 4λ + λ² - 8
+    = λ² - 4λ - 5
+*   Set the equation to zero: λ² - 4λ - 5 = 0
+*   Factor the quadratic equation: (λ - 5)(λ + 1) = 0
+*   The eigenvalues are **λ₁ = 5** and **λ₂ = -1**.
+
+**Step 2: Find the Eigenvectors (v)**
+For each eigenvalue, we solve (A - λI)v = 0.
+
+*   **For λ₁ = 5:**
+    *   (A - 5I)v = `[[-4, 2], [4, -2]]` `[[x], [y]]` = `[[0], [0]]`
+    *   This gives the equation -4x + 2y = 0, which simplifies to y = 2x.
+    *   If we let x = 1, then y = 2.
+    *   The corresponding eigenvector is **v₁ =ᵀ**.
+
+*   **For λ₂ = -1:**
+    *   (A - (-1)I)v = `[[2, 2], [4, 4]]` `[[x], [y]]` = `[[0], [0]]`
+    *   This gives the equation 2x + 2y = 0, which simplifies to y = -x.
+    *   If we let x = 1, then y = -1.
+    *   The corresponding eigenvector is **v₂ = [1, -1]ᵀ**.
+
+**(c) Write a short note on Minimum error rate classification. (7 Marks)**
+
+Minimum error rate classification is a fundamental decision-making strategy in pattern recognition based on **Bayesian Decision Theory**. Its primary goal is to design a classifier that minimizes the total probability of making an incorrect classification (misclassification error).
+
+**The Decision Rule:**
+The core principle is to assign a feature vector **x** to the class **ωᵢ** that has the highest **posterior probability**, P(ωᵢ|x).
+*   **Rule:** Decide ωᵢ if **P(ωᵢ|x) > P(ωⱼ|x)** for all j ≠ i.
+
+**Bayes' Theorem:**
+The required posterior probability is calculated using Bayes' theorem, which connects it to more easily estimated quantities: the prior and the likelihood.
+*   **P(ωᵢ|x) = [ p(x|ωᵢ) * P(ωᵢ) ] / p(x)**
+    *   **P(ωᵢ|x) (Posterior):** The probability of the class being ωᵢ *after* observing the data x.
+    *   **p(x|ωᵢ) (Likelihood):** The probability of observing data x if it belonged to class ωᵢ. This is the class-conditional density.
+    *   **P(ωᵢ) (Prior):** The probability of class ωᵢ occurring in general, *before* seeing any data.
+    *   **p(x) (Evidence):** The overall probability of observing the data x. It acts as a normalizing constant.
+
+**Minimizing Error:**
+By always choosing the class with the highest posterior probability, we are inherently minimizing the error for each decision. The probability of error for any given decision is P(error|x) = 1 - maxᵢ P(ωᵢ|x). By maximizing the posterior, we minimize this error. A classifier that implements this rule is called a **Bayes Optimal Classifier**, as no other classifier can achieve a lower average error rate given the same prior and likelihood information.
+
+---
+
+### **Q. 2**
+
+**(a) What is unsupervised learning? What is soft clustering and hard clustering? (3 Marks)**
+
+*   **Unsupervised Learning:** A type of machine learning where algorithms learn patterns from unlabeled data. The system tries to find hidden structures or relationships within the data without any predefined target outputs. Common tasks are clustering and dimensionality reduction.
+*   **Hard Clustering:** An approach where each data point is assigned exclusively to one cluster. The membership is absolute and non-overlapping. *Example: K-means clustering.*
+*   **Soft Clustering (Fuzzy Clustering):** An approach where each data point is assigned a probability or a degree of membership for every cluster. A data point can belong to multiple clusters simultaneously, but with different levels of certainty. *Example: Gaussian Mixture Models (GMM).*
+
+**(b) What is pattern recognition? List out various applications of pattern recognition. (4 Marks)**
+
+**Pattern Recognition** is the scientific discipline focused on the automatic discovery of patterns, regularities, and structures in data. It is a core part of machine learning that enables systems to classify data into different categories. The process typically involves acquiring raw data, preprocessing it, extracting meaningful features, and then using a classification algorithm to assign a label or category to the input.
+
+**Various Applications:**
+*   **Computer Vision:** Face detection, object recognition, optical character recognition (OCR).
+*   **Medical Diagnosis:** Analyzing medical images (like X-rays or MRIs) to detect tumors or diseases.
+*   **Biometrics:** Fingerprint matching, iris scanning, and voice recognition for security and authentication.
+*   **Speech Recognition:** Converting spoken words into text (e.g., Siri, Google Assistant).
+*   **Finance:** Credit card fraud detection and stock market analysis.
+*   **Natural Language Processing:** Spam filtering in emails and sentiment analysis on social media.
+
+**(c) Explain the steps in "k-means clustering" using a suitable illustration. What are the limitations of this method? (7 Marks)**
+
+K-means is a popular unsupervised learning algorithm used for partitioning a dataset into *k* distinct, non-overlapping clusters.
+
+**Steps in k-means clustering:**
+1.  **Initialization:** Choose the number of clusters, *k*. Then, randomly initialize *k* points as the initial cluster centroids.
+2.  **Assignment Step:** For each data point in the dataset, calculate its distance (typically Euclidean distance) to all *k* centroids. Assign the data point to the cluster of the nearest centroid.
+3.  **Update Step:** After all points have been assigned to clusters, recalculate the position of the *k* centroids. The new centroid of each cluster is the mean of all data points assigned to it.
+4.  **Convergence:** Repeat the Assignment and Update steps iteratively until the cluster assignments no longer change or the centroids stop moving significantly.
+
+**Illustration:**
+
+| Step 1: Initialize | Step 2: Assign | Step 3: Update | Final Clusters |
+| :---: | :---: | :---: | :---: |
+|  |  |  |  |
+| Three random centroids are placed. | Points are colored based on the closest centroid. | Centroids move to the mean of their new points. | The process repeats until centroids stabilize. |
+
+**Limitations of k-means:**
+1.  **Pre-defined *k***: The number of clusters, *k*, must be specified in advance, which is often difficult to determine.
+2.  **Sensitivity to Initialization:** The final result can vary depending on the initial random placement of centroids.
+3.  **Cluster Shape:** It assumes that clusters are spherical and evenly sized, performing poorly on clusters with complex, non-convex shapes or varying densities.
+4.  **Sensitivity to Outliers:** Outliers can significantly pull a centroid away from its true center, affecting the final clustering.
+
+**(c) OR Explain working of Hidden Markov Model. (7 Marks)**
+
+A Hidden Markov Model (HMM) is a statistical model for analyzing sequential data where the underlying system is assumed to be a Markov process with unobserved (hidden) states.
+
+**Core Components:**
+1.  **Hidden States (S):** A finite set of states the system can be in, which are not directly observable (e.g., 'Hot' or 'Cold' weather).
+2.  **Observations (O):** A set of observable symbols or outputs that are emitted from each state (e.g., 'number of ice creams eaten').
+3.  **State Transition Probabilities (A):** The probability of moving from one hidden state to another. `Aᵢⱼ = P(state j at t+1 | state i at t)`.
+4.  **Emission Probabilities (B):** The probability of observing a particular output while in a specific hidden state. `Bᵢ(k) = P(observation k | state i)`.
+5.  **Initial State Probabilities (π):** The probability of the system starting in each hidden state.
+
+**Working Principle:**
+An HMM generates a sequence of observations by first choosing an initial hidden state according to **π**. Then, at each time step, it emits an observation according to the **emission probabilities (B)** of the current state and moves to a new hidden state according to the **transition probabilities (A)**.
+
+**Three Fundamental Problems Solved by HMMs:**
+1.  **Likelihood:** What is the probability of a given observation sequence? (Solved by the **Forward Algorithm**). This is used for classification.
+2.  **Decoding:** What is the most likely sequence of hidden states that produced an observation sequence? (Solved by the **Viterbi Algorithm**).
+3.  **Learning:** How can we adjust the model parameters (A, B, π) to best fit the observed data? (Solved by the **Baum-Welch Algorithm**).
+
+---
+
+### **Q. 3**
+
+**(a) Explain the terms: (i) Autocorrelation (ii) Cross-correlation. (2 Marks)**
+
+*   **(i) Autocorrelation:** A measure of the similarity between a signal and a time-delayed version of itself. It is used to find repeating patterns or periodicities within a single signal.
+*   **(ii) Cross-correlation:** A measure of the similarity between two different signals as a function of the time lag applied to one of them. It is used to find the time delay between two signals or to detect a known signal within another signal.
+
+**(b) Explain working of Non-negative Matrix Factorization. (3 Marks)**
+
+Non-negative Matrix Factorization (NMF) is a dimensionality reduction technique that decomposes a high-dimensional non-negative matrix **V** into two smaller, non-negative matrices, **W** and **H**.
+*   **Formula:** V ≈ WH
+*   **Matrices:**
+    *   **V:** The original data matrix (e.g., documents vs. words).
+    *   **W:** The "basis" or "features" matrix (e.g., topics).
+    *   **H:** The "coefficients" or "weights" matrix (e.g., how much of each topic is in each document).
+*   **Working:** NMF uses an iterative optimization process to find W and H. The key constraint is that all elements must be non-negative, which leads to an additive, parts-based representation that is often easier for humans to interpret than other methods like PCA.
+
+**(c) Explain Factor Analysis in detail. (7 Marks)**
+
+Factor Analysis (FA) is a statistical and dimensionality reduction method used to identify the underlying latent structure among a set of observed, correlated variables. Its primary purpose is to represent these variables in terms of a smaller number of unobserved variables called **factors**.
+
+**The Model:**
+FA assumes that the observed variables (**X**) are linear combinations of unobserved common factors (**F**) plus a unique error term (**ε**).
+*   **X = L * F + ε**
+    *   **L (Factor Loadings):** A matrix of coefficients that represent the correlation between each observed variable and each factor. A high loading indicates a strong relationship.
+    *   **F (Common Factors):** The latent variables that are believed to influence multiple observed variables and explain the correlations among them.
+    *   **ε (Unique Factors/Error):** The portion of variance in each observed variable that is not explained by the common factors.
+
+**Key Concepts:**
+1.  **Communality:** The proportion of variance in an observed variable that is shared with other variables and explained by the common factors.
+2.  **Factor Rotation:** A process applied after factor extraction to simplify the factor structure and make it more interpretable. Methods like **Varimax** rotate the factor axes to achieve a state where each variable loads highly on only one factor.
+
+**Factor Analysis vs. PCA:**
+While both are dimensionality reduction techniques, their goals differ:
+*   **PCA** aims to find components that capture the maximum possible **total variance** in the data. It is a mathematical transformation.
+*   **FA** aims to model the **shared variance** (covariance) among variables to uncover the underlying latent structure. It is a statistical model that separates shared and unique variance.
+
+**(a) OR Define supervised and reinforcement learning techniques. (2 Marks)**
+
+*   **Supervised Learning:** A machine learning approach where the algorithm learns from a labeled dataset, meaning each data point is tagged with a correct output or target. The goal is to learn a mapping function that can predict the output for new, unseen data. Examples include classification and regression.
+*   **Reinforcement Learning:** A machine learning approach where an "agent" learns to make optimal decisions by interacting with an "environment". The agent receives "rewards" or "penalties" for its actions and learns a policy to maximize its cumulative reward over time through trial and error.
+
+**(b) OR Write a short not on LDA. (3 Marks)**
+
+Linear Discriminant Analysis (LDA) is a supervised dimensionality reduction technique primarily used for classification problems.
+*   **Goal:** To find a lower-dimensional space that maximizes the separability between classes.
+*   **Method:** LDA projects the data onto a new axis (or axes) in a way that maximizes the distance between the means of the different classes while simultaneously minimizing the variance within each class.
+*   **Versus PCA:** Unlike PCA (which is unsupervised and finds directions of maximum variance), LDA is supervised and finds directions that are optimal for discriminating between classes, making it highly effective as a pre-processing step for classification.
+
+**(c) OR Explain working of PCA as dimensionality reduction method. (7 Marks)**
+
+Principal Component Analysis (PCA) is a widely used unsupervised technique for dimensionality reduction. Its goal is to transform a dataset with many correlated variables into a smaller set of uncorrelated variables called **principal components**, while retaining most of the original information (variance).
+
+**Working Steps:**
+1.  **Standardize the Data:** Scale each feature to have a mean of 0 and a standard deviation of 1. This step is crucial to ensure that features with larger scales do not dominate the analysis.
+2.  **Compute the Covariance Matrix:** Calculate the covariance matrix for the standardized dataset. This matrix describes the variance of each feature and the covariance between pairs of features.
+3.  **Calculate Eigenvectors and Eigenvalues:** Decompose the covariance matrix to find its eigenvectors and eigenvalues.
+    *   **Eigenvectors:** These represent the directions of the new axes (the principal components). They are orthogonal to each other.
+    *   **Eigenvalues:** These indicate the amount of variance captured by each corresponding eigenvector. A higher eigenvalue means more variance.
+4.  **Select Principal Components:** Sort the eigenvectors in descending order of their corresponding eigenvalues. The principal components are ranked by the amount of variance they explain. To reduce dimensionality from *n* to *k* dimensions, select the top *k* eigenvectors. The number *k* is often chosen to retain a certain percentage of the total variance (e.g., 95%).
+5.  **Transform the Data:** Create a projection matrix using the selected *k* eigenvectors. Project the original standardized data onto this new, lower-dimensional subspace by taking the dot product of the data and the projection matrix. The result is the new, reduced dataset where each row represents the original data point in terms of the principal components.
